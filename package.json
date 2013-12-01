@@ -1,0 +1,19 @@
+{
+  "name": "originate",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "originate": "bin/originate"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "shelljs": "~0.2.6",
+    "cli-color": "~0.2.3",
+    "loom": "~3.x.x"
+  }
+}
