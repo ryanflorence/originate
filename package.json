@@ -11,9 +11,6 @@
   },
   "author": "Ryan Florence <rpflorence@gmail.com>",
   "license": "MIT",
-  "peerDependencies": {
-    "loom": "~3.x.x"
-  },
   "dependencies": {
     "loom": "~3.x.x",
     "shelljs": "~0.2.6",
