@@ -27,10 +27,10 @@ $ originate ember@1.0.2 my-app
 Creating Origins
 ----------------
 
-Creating origins is simple with the originate-origin origin (yo dawg, I
+Creating origins is simple with the [originate-origin origin][2] (yo dawg, I
 heard you like origins):
 
-```
+```sh
 $ originate origin originate-foo
 # so I put some origins in your origin
 $ cd originate-foo
@@ -42,6 +42,9 @@ $ npm publish
 
 That's it, now people can use it with `originate foo my-app`.
 
+A little more information is available at the [originate-origin][2]
+repository.
+
 Licences and Copyright
 ----------------------
 
@@ -50,4 +53,5 @@ MIT Style licence
 (c) 2013 Ryan Florence
 
   [1]:https://github.com/rpflorence/loom
+  [2]:https://github.com/rpflorence/originate-origin
 
