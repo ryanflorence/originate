@@ -15,5 +15,14 @@
     "loom": "~3.x.x",
     "shelljs": "~0.2.6",
     "cli-color": "~0.2.3"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rpflorence/originate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rpflorence/originate/issues"
+  },
+  "homepage": "https://github.com/rpflorence/originate"
 }
