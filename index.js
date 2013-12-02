@@ -1,13 +1,27 @@
 require('shelljs/global');
 var fs = require('fs');
 var color = require('cli-color');
-var blue = color.blue;
 var loom = require('../loom');
+var blue = color.blue;
+var red = color.red;
+var prompt = require('cli-prompt');
 
 module.exports = function() {
 
+  if (process.argv[2]) {
+    if (process.argv[2].match(/(--help|-h)/)) {
+      logHelp();
+      process.exit();
+    }
+
+    if (process.argv[2].match(/(--version|-v)/)) {
+      console.log('v'+require('./package').version);
+      process.exit();
+    }
+  }
+
   if (process.argv.length !== 4) {
-    log('please provide a project type and destination, ie: "originate ember my-app"');
+    logHelp();
     process.exit();
   }
 
@@ -28,7 +42,7 @@ module.exports = function() {
   var dir = 'node_modules/'+moduleName;
 
   if (!fs.existsSync(dir)) {
-    log('could not install '+moduleName+', exiting');
+    log(red('could not install '+moduleName+' from npm, exiting\n'));
     process.exit();
   }
 
@@ -45,6 +59,16 @@ module.exports = function() {
 };
 
 function log(msg) {
-  console.log(blue('originate:'), msg);
+  console.log('\n'+blue('originate:'), msg);
 }
 
+
+function logHelp() {
+  console.log('\n  Usage:');
+  console.log('\n    originate [origin] [project-path]');
+  console.log('\n  Example:');
+  console.log('\n    originate ember my-new-app');
+  console.log('\n  Creating Origins:');
+  console.log('\n    Publish projects to npm as "originate-<name>" to create\n    new origins; others can then use them immediately.');
+  console.log('\n');
+}
