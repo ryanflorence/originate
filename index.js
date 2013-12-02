@@ -58,7 +58,7 @@ function run() {
     rm('-rf', 'node_modules/'+moduleName);
     if (createdNodeModulesDir) {
       log('removing temporary node_modules directory');
-      mkdir('-rf', 'node_modules');
+      rm('-rf', 'node_modules');
     }
   }
 };
