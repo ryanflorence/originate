@@ -19,7 +19,8 @@ function run() {
     origin = origin.replace(/@.+/, '');
   }
   var createdNodeModulesDir = false;
-  var loomCommand = '--path node_modules/'+moduleName+'/loom '+origin+' '+dest;
+  var loomPath = 'node_modules/'+moduleName+'/loom';
+  var loomCommand = '--path '+loomPath+' '+origin+' '+dest;
 
   ensureNodeModules();
   installModule();
