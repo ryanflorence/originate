@@ -1,10 +1,9 @@
 require('shelljs/global');
 var fs = require('fs');
 var color = require('cli-color');
-var loom = require('../loom');
+var loom = require('loom');
 var blue = color.blue;
 var red = color.red;
-var prompt = require('cli-prompt');
 
 module.exports = function() {
   maybeLogHelpOrVersion();
@@ -16,6 +15,9 @@ function run() {
   var origin = process.argv[2];
   var dest = process.argv[3];
   var moduleName = 'originate-'+origin;
+  if (origin.match('@')) {
+    origin = origin.replace(/@.+/, '');
+  }
   var createdNodeModulesDir = false;
   var loomCommand = '--path node_modules/'+moduleName+'/loom '+origin+' '+dest;
 
@@ -66,9 +68,9 @@ function log(msg) {
 
 function logHelp() {
   console.log('\n  Usage:');
-  console.log('\n    originate [origin] [project-path]');
+  console.log('\n    originate <origin[@version]> <project-path>');
   console.log('\n  Example:');
-  console.log('\n    originate ember my-new-app');
+  console.log('\n    originate ember my-app\n    originate ember@1.0.2 my-app');
   console.log('\n  Creating Origins:');
   console.log('\n    Publish projects to npm as "originate-<name>" to create\n    new origins; others can then use them immediately.');
   console.log('\n');
@@ -80,11 +82,12 @@ function maybeLogHelpOrVersion() {
   }
   if (process.argv[2].match(/(--help|-h)/)) {
     logHelp();
+    process.exit();
   }
   if (process.argv[2].match(/(--version|-v)/)) {
     console.log('v'+require('./package').version);
+    process.exit();
   }
-  process.exit();
 }
 
 function validateArgs() {
