@@ -1,6 +1,6 @@
 {
   "name": "originate",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "generates project scaffolds with loom",
   "main": "index.js",
   "bin": {
