@@ -31,16 +31,14 @@ function run() {
   function afterLoom() {
     var mod;
     try {
-      mod = require(moduleName);
+      mod = require(process.cwd()+'/node_modules/'+moduleName);
     } catch(e) {}
     cleanup();
     cd(dest);
     if ('function' == typeof mod) {
       mod();
     }
-    log('\n');
     log('your new '+origin+' project is waiting at '+ dest);
-    log('\n');
   }
 
   function ensureNodeModules() {
