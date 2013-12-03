@@ -20,7 +20,8 @@ function run() {
   }
   var createdNodeModulesDir = false;
   var loomPath = 'node_modules/'+moduleName+'/loom';
-  var loomCommand = '--path '+loomPath+' '+origin+' '+dest;
+  var options = process.argv.slice(4, process.argv.length).join(' ');
+  var loomCommand = '--path '+loomPath+' '+origin+' '+dest+' '+options;
 
   ensureNodeModules();
   installModule();
@@ -28,8 +29,18 @@ function run() {
   loom(loomCommand, afterLoom);
 
   function afterLoom() {
+    var mod;
+    try {
+      mod = require(moduleName);
+    } catch(e) {}
     cleanup();
-    log('new '+origin+' project is ready to go at: '+dest);
+    cd(dest);
+    if ('function' == typeof mod) {
+      mod();
+    }
+    log('\n');
+    log('your new '+origin+' project is waiting at '+ dest);
+    log('\n');
   }
 
   function ensureNodeModules() {
@@ -69,7 +80,7 @@ function log(msg) {
 
 function logHelp() {
   console.log('\n  Usage:');
-  console.log('\n    originate <origin[@version]> <project-path>');
+  console.log('\n    originate <origin[@version]> <project-path> <options>');
   console.log('\n  Example:');
   console.log('\n    originate ember my-app\n    originate ember@1.0.2 my-app');
   console.log('\n  Creating Origins:');
@@ -92,7 +103,7 @@ function maybeLogHelpOrVersion() {
 }
 
 function validateArgs() {
-  if (process.argv.length !== 4) {
+  if (process.argv.length < 4) {
     logHelp();
     process.exit();
   }
