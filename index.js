@@ -16,10 +16,11 @@ function run() {
   var dest = process.argv[3];
   var moduleName = 'originate-'+origin;
   if (origin.match('@')) {
+    moduleNameSansVersion = moduleName.split('@')[0];
     origin = origin.replace(/@.+/, '');
   }
   var createdNodeModulesDir = false;
-  var loomPath = 'node_modules/'+moduleName+'/loom';
+  var loomPath = 'node_modules/'+moduleNameSansVersion+'/loom';
   var options = process.argv.slice(4, process.argv.length).join(' ');
   var loomCommand = '--path '+loomPath+' '+origin+' '+dest+' '+options;
 
@@ -31,7 +32,7 @@ function run() {
   function afterLoom() {
     var mod;
     try {
-      mod = require(process.cwd()+'/node_modules/'+moduleName);
+      mod = require(process.cwd()+'/node_modules/'+moduleNameSansVersion);
     } catch(e) {}
     cleanup();
     cd(dest);
@@ -43,9 +44,9 @@ function run() {
 
   function ensureNodeModules() {
     if (!fs.existsSync('node_modules')) {
-      createdNodeModulesDir = true;
       log('making temporary node_modules directory');
       mkdir('node_modules');
+      createdNodeModulesDir = true;
     }
   }
 
@@ -55,7 +56,7 @@ function run() {
   }
 
   function validateInstall() {
-    var dir = 'node_modules/'+moduleName;
+    var dir = 'node_modules/'+moduleNameSansVersion;
     if (!fs.existsSync(dir)) {
       log(red('could not install '+moduleName+' from npm, exiting\n'));
       process.exit();
