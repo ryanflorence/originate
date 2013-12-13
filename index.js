@@ -16,7 +16,7 @@ function run() {
   var dest = process.argv[3];
   var moduleName = 'originate-'+origin;
   if (origin.match('@')) {
-    origin = origin.replace(/@.+/, '');
+    origin = origin.split('@')[0];
   }
   var createdNodeModulesDir = false;
   var loomPath = 'node_modules/'+moduleName+'/loom';
