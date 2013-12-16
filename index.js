@@ -13,8 +13,14 @@ module.exports = function() {
 
 function run() {
   var origin = process.argv[2];
+  var moduleName;
+  if (origin[0] == '.') {
+    moduleName = origin;
+    origin = origin.match(/originate-(.+)/)[1]
+  } else {
+    moduleName = 'originate-'+origin;
+  }
   var dest = process.argv[3];
-  var moduleName = parseModuleName(origin);
   if (origin.match('@')) {
     origin = origin.replace(/@.+/, '');
   }
@@ -105,10 +111,5 @@ function validateArgs() {
     logHelp();
     process.exit();
   }
-}
-
-function parseModuleName(origin) {
-  // allow local installs
-  return (origin[0] == '.' || origin[0] == '/') ? origin : 'originate-'+origin;
 }
 
