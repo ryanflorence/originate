@@ -14,7 +14,7 @@ module.exports = function() {
 function run() {
   var origin = process.argv[2];
   var dest = process.argv[3];
-  var moduleName = 'originate-'+origin;
+  var moduleName = parseModuleName(origin);
   if (origin.match('@')) {
     origin = origin.replace(/@.+/, '');
   }
@@ -105,5 +105,10 @@ function validateArgs() {
     logHelp();
     process.exit();
   }
+}
+
+function parseModuleName(origin) {
+  // allow local installs
+  return (origin[0] == '.' || origin[0] == '/') ? origin : 'originate-'+origin;
 }
 
